@@ -1,83 +1,34 @@
 <?php
     include_once('includes/header.php');
-    // if wala pay user
-    include_once('includes/navbar/navbar(nouser).php');
-    // else pag naa nay user
-    // include_once('includes/navbar/navbar(withuser).php');
-?>  
-    <!-- Search Bar -->
-    <div class="my-search-bar">
-        <div class="row text-center pb-4">
-            <div class="col-md-12">
-                <h2>Find your ideal house for learning</h2>
-            </div>
-        </div>   
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row justify-content-center">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <select id="inputState" class="form-control" >
-                                        <option selected>Location</option>
-                                        <option>Brgy. Gabas</option>
-                                        <option>Brgy. Guadalupe (Utod)</option>
-                                        <option>Brgy. Marcus (Utod)</option>
-                                        <option>Brgy. Pangasugan</option>
-                                        <option>Brgy. Patag</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group ">
-                                    <select id="inputState" class="form-control" >
-                                        <option selected>Gender</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                        <option>Male/Female</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group ">
-                                    <select id="inputState" class="form-control" >
-                                        <option selected>Rate (Monthly)</option>
-                                        <option>Php 500-999</option>
-                                        <option>Php 999-1499</option>
-                                        <option>Php 1499 and Above</option>
-                                        
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group ">
-                                    <select id="inputState" class="form-control" >
-                                        <option selected>Accomodation</option>
-                                        <option>Bed Spacer</option>
-                                        <option>Room</option>
-                                        <option>Apartment</option>
-                                    </select>
-                                </div>
-                            </div>
-                    
-                            <div class="col-md-2 text-center">
-                                <button type="button" class="btn btn-dark">
-                                    <span class="fas fa-search h6"></span>    
-                                    Search House
-                                </button>
-                            </div>
+?>
 
-                        </div>
+    <nav class="navbar navbar-light bg-light navbar-expand-lg">
+        <a class="navbar-brand" href="index.php">
+            <img src="images/bhouse.jpeg" width="30" height="30" class="d-inline-block align-top" alt="">
+            Boardinghouse Finder
+        </a>
 
-                    </div>
-                </div>
-            </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="addunit.php"><span class="fa fa-plus"></span> Add Unit</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="updateProfile.php"><span class="fa fa-user"></span> Update Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><span class="fa fa-sign-out-alt"></span> Sign-out</a>
+                </li>   
+            </ul>
         </div>
-    </div>
+    </nav>
 
-    <!-- List of units -->
-    <div class="units-card container">
+     <!-- List of units -->
+     <div class="units-card container">
         <div class="row">
             <div class="col-md-6">
                 <div class="card bhouse-cntr">
@@ -111,12 +62,22 @@
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <p class="card-text text-right">
-                            <a href="boardinghouse.php">
-                                <span class="fa fa-eye"></span>
-                                View Details
-                            </a>
-                        </p>
+                        <div class="col">
+                            <span class="float-left ">
+                                <a href="#">
+                                    <span class="fa fa-trash"></span>
+                                    Delete Unit
+                                </a>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <span class="float-right">
+                                <a href="editunit.php">
+                                    <span class="fa fa-edit"></span>
+                                    Edit Unit
+                                </a>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>    
@@ -143,12 +104,22 @@
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <p class="card-text text-right">
-                            <a href="boardinghouse.php">
-                                <span class="fa fa-eye"></span>
-                                View Details
-                            </a>
-                        </p>
+                        <div class="col">
+                            <span class="float-left ">
+                                <a href="#">
+                                    <span class="fa fa-trash"></span>
+                                    Delete Unit
+                                </a>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <span class="float-right">
+                                <a href="editunit.php">
+                                    <span class="fa fa-edit"></span>
+                                    Edit Unit
+                                </a>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -184,12 +155,22 @@
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <p class="card-text text-right">
-                            <a href="boardinghouse.php">
-                                <span class="fa fa-eye"></span>
-                                View Details
-                            </a>
-                        </p>
+                        <div class="col">
+                            <span class="float-left ">
+                                <a href="#">
+                                    <span class="fa fa-trash"></span>
+                                    Delete Unit
+                                </a>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <span class="float-right">
+                                <a href="editunit.php">
+                                    <span class="fa fa-edit"></span>
+                                    Edit Unit
+                                </a>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>    
@@ -219,21 +200,31 @@
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <p class="card-text text-right">
-                            <a href="boardinghouse.php">
-                                <span class="fa fa-eye"></span>
-                                View Details
-                            </a>
-                        </p>
+                        <div class="col">
+                            <span class="float-left ">
+                                <a href="#">
+                                    <span class="fa fa-trash"></span>
+                                    Delete Unit
+                                </a>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <span class="float-right">
+                                <a href="editunit.php">
+                                    <span class="fa fa-edit"></span>
+                                    Edit Unit
+                                </a>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    
-    
     </div>
 
 
-<?php 
-    include 'includes/footer.php'; 
+
+
+<?php
+    include_once('includes/footer.php');
 ?>

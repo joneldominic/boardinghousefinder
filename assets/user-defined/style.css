@@ -95,4 +95,8 @@
 /* details >> */
 
 
-
+/* Add Unit << */
+    .my-addunit-cntr textarea.description {
+        max-width:100%;
+    }
+/* Add Unit>> */

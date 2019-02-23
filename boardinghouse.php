@@ -1,5 +1,9 @@
 <?php
     include_once('includes/header.php');
+    // if wala pay user
+    // include_once('includes/navbar/navbar(nouser).php');
+    // else pag naa nay user
+    include_once('includes/navbar/navbar(withuser).php');
 ?>      
 
     <!-- Boardinghouse unit Carousel -->
@@ -16,21 +20,18 @@
                 <div class="carousel-item active text-center">
                     <img src="images/sample-unit.jpeg" alt="Los Angeles">
                     <div class="carousel-caption">
-                        <!-- <h4>Los Angeles</h4> -->
                         <p>Front View</p>
                     </div>   
                 </div>
                 <div class="carousel-item text-center">
                     <img src="images/sample-unit.jpeg" alt="Chicago">
                     <div class="carousel-caption">
-                        <!-- <h4>Chicago</h4> -->
                         <p>Kitchen</p>
                     </div>   
                 </div>
                 <div class="carousel-item text-center">
                     <img src="images/sample-unit.jpeg" alt="New York">
                     <div class="carousel-caption">
-                        <!-- <h4>New York</h4> -->
                         <p>Confort Room</p>
                     </div>   
                 </div>
@@ -51,7 +52,7 @@
         <h3 class="text-center">Tapang's Boardinghouse</h3>
         <hr />
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <img class="img-circle img-responsive owner-profile" src="images/temp-profile.jpeg" alt="Owner's Profile">
                 <ul class="owner-det">
                     <li><span class="fa fa-user"></span> Jonel Dominic Tapang</li>
@@ -59,7 +60,7 @@
                     <li><span class="fa fa-mobile"></span> 09087863725</li>
                 </ul>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <ul class="bhouse-det">
                     <li>Accomodation: Bedspacer</li>
                     <li>Gender: Male</li>
