@@ -1,3 +1,35 @@
+<?php
+    // check if there is an account login in session
+    if (isset($_SESSION['isloggedin'])) {
+        header('Location: index.php'); // redirect to index.php page
+    }
+
+    include_once('controller/AuthController.php');
+
+    $authControl = new AuthController;
+
+    // check if there are POSTS from the form
+    if (isset($_POST['btnLogin'])) {
+        $data = array( 'username' => $_POST['username'],
+                      'password' => $_POST['password']
+                    );
+
+
+        $login = $authControl->login($data); 
+
+        if ($login === false) {
+            
+            // Display Error
+            echo "  <div class='alert alert-danger'>
+                        <strong>Error!</strong> Account not found.
+                    </div>
+            ";
+        }
+    }
+
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,17 +61,17 @@
                             </div>
                         </div>
                         
-                        <form action="" method="post" name="login">
+                        <form method="POST" name="login">
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input type="text" name="username"  class="form-control" id="username" placeholder="Enter Username">
+                                <input type="text" name="username"  class="form-control" id="username" placeholder="Enter Username" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password">
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password" required>
                             </div>
                             <div class="col-md-12 text-center ">
-                                <button type="submit" class=" btn btn-block btn-primary tx-tfm" id="btnLogin">Login</button>
+                                <button type="submit" class=" btn btn-block btn-primary tx-tfm" name="btnLogin" id="btnLogin">Login</button>
                             </div>
                             <div class="form-group">
                                 <p class="text-center">Don't have account? <a href="signup.php" id="btnSignup">Sign up here</a></p>

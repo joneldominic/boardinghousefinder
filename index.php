@@ -1,9 +1,16 @@
 <?php
+    session_start();
     include_once('includes/header.php');
-    // if wala pay user
-    include_once('includes/navbar/navbar(nouser).php');
-    // else pag naa nay user
-    // include_once('includes/navbar/navbar(withuser).php');
+
+    // check if there is an account login in session
+    if (isset($_SESSION['isloggedin'])) {
+        include('includes/navbar/navbar(withuser).php');
+    } else {
+        include('includes/navbar/navbar(nouser).php');
+    }
+
+    // print_r($_SESSION);
+
 ?>  
     <!-- Search Bar -->
     <div class="my-search-bar">

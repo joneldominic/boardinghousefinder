@@ -1,7 +1,13 @@
 <?php
+    session_start();
+
+    if (!isset($_SESSION['isloggedin'])) {
+        Header('Location: login.php'); 
+    }
+
     include_once('includes/header.php');
 ?>
-
+    <!-- Navigation Bar -->
     <nav class="navbar navbar-light bg-light navbar-expand-lg">
         <a class="navbar-brand" href="index.php">
             <img src="images/bhouse.jpeg" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -21,8 +27,8 @@
                     <a class="nav-link" href="updateProfile.php"><span class="fa fa-user"></span> Update Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><span class="fa fa-sign-out-alt"></span> Sign-out</a>
-                </li>   
+                    <a class="nav-link" href="controller/logout.php"><span class="fa fa-sign-out-alt"></span> Sign-out</a>
+                </li>  
             </ul>
         </div>
     </nav>

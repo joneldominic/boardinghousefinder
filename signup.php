@@ -1,3 +1,31 @@
+<?php
+    include_once('controller/AuthController.php');
+
+    $authControl = new AuthController;
+
+    if(isset($_POST['btnSignup'])) {
+        $data = array( 'username' => $_POST['username'],
+                        'password' => $_POST['password'],
+                        'firstname' => $_POST['firstname'],
+                        'lastname' => $_POST['lastname'],
+                        'homeAddress' => $_POST['homeAddress'],
+                        'contactNumber' => $_POST['contactNumber']
+                );
+    
+        $signup_res = $authControl->signup($data);
+
+        if($signup_res === FALSE) {
+            
+            // Display Error
+            echo "  <div class='alert alert-danger'>
+                        <strong>Error!</strong>
+                    </div>
+                ";
+        }
+    }
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,35 +57,35 @@
                             </div>
                         </div>
                         
-                        <form action="#" name="registration">
+                        <form method="POST" name="registration">
                             <div class="form-group">
                                 <label for="firstname">First Name</label>
-                                <input type="text"  name="firstname" class="form-control" id="firstname" placeholder="Enter Firstname">
+                                <input type="text"  name="firstname" class="form-control" id="firstname" placeholder="Enter Firstname" required>
                             </div>
                             <div class="form-group">
                                 <label for="lastname">Last Name</label>
-                                <input type="text"  name="lastname" class="form-control" id="lastname" placeholder="Enter Lastname">
+                                <input type="text"  name="lastname" class="form-control" id="lastname" placeholder="Enter Lastname" required>
                             </div>
                             <div class="form-group">
                                 <label for="homeAddress">Address</label>
-                                <input type="text" name="homeAddress" id="homeAddress"  class="form-control" placeholder="Enter Address">
+                                <input type="text" name="homeAddress" id="homeAddress"  class="form-control" placeholder="Enter Address" required>
                             </div>
                             <div class="form-group">
                                 <label for="contactNumber">Phone Number</label>
-                                <input type="text" name="contactNumber" id="contactNumber"  class="form-control" placeholder="Enter Phone Number">
+                                <input type="text" name="contactNumber" id="contactNumber"  class="form-control" placeholder="Enter Phone Number" required>
                             </div>
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input type="text" name="username"  class="form-control" id="username" placeholder="Enter Username">
+                                <input type="text" name="username"  class="form-control" id="username" placeholder="Enter Username" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" name="password" id="password"  class="form-control" placeholder="Enter Password">
+                                <input type="password" name="password" id="password"  class="form-control" placeholder="Enter Password" required>
                             </div>
 
 
                             <div class="col-md-12 text-center mb-3">
-                                <button type="submit" class=" btn btn-block btn-primary tx-tfm" id="btnSignup">Sign Up</button>
+                                <button type="submit" class=" btn btn-block btn-primary tx-tfm" name="btnSignup" id="btnSignup">Sign Up</button>
                             </div>
                             <div class="col-md-12 ">
                                 <div class="form-group">
@@ -70,10 +98,6 @@
             </div>
         </div>   
             
-
-
-
-
 
         <!-- Bootstrap core JavaScript -->
         <script src="./assets/jquery/jquery.min.js"></script>

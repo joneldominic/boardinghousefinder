@@ -1,5 +1,17 @@
 <?php
+    session_start();
+    
+    if (!isset($_SESSION['isloggedin'])) {
+        Header('Location: login.php'); 
+    }
+
     include_once('includes/header.php');
+
+    include_once('controller/OwnerProfileController.php');
+
+    $ownerProfControl = new OwnerProfileController;
+    $ownerInfo = $ownerProfControl->getOwnerInformation($_SESSION["ownerID"]);
+    // print_r($ownerInfo);
 ?>
 
     <nav class="navbar navbar-light bg-light navbar-expand-lg">
@@ -18,10 +30,14 @@
                     <a class="nav-link" href="addunit.php"><span class="fa fa-plus"></span> Add Unit</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="ownedunit.php"><span class="fa fa-user"></span> Jonel Dominic Tapang</a>
+                    <a class="nav-link" href="ownedunit.php"><span class="fa fa-user"></span> 
+                        <?php
+                            echo $ownerInfo["firstName"]. " ".$ownerInfo["lastName"];
+                        ?>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><span class="fa fa-sign-out-alt"></span> Sign-out</a>
+                    <a class="nav-link" href="controller/logout.php"><span class="fa fa-sign-out-alt"></span> Sign-out</a>
                 </li>   
             </ul>
         </div>
