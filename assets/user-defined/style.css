@@ -1,0 +1,98 @@
+/* General << */
+    .my-top-margin-3em {
+        margin-top: 3em;
+    }
+/* General >> */
+
+
+
+/* index.php << */
+
+    .my-search-bar {
+        margin-top: 2em;
+    }
+ 
+    .bhouse-cntr {
+        margin-top: 1em;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    }
+
+
+/* index.php  >> */
+
+
+
+/* boardinghouse.php << */
+
+    .bhpage-cntr {
+        margin-top: 1em;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    /* Card Units -------------------------*/
+    .units-card .card {
+        margin-top: 1em;
+    }
+    /* Card Units -------------------------*/
+
+    /* Boadinghouse Image Carousel -------------------------*/
+
+    .my-carousel {
+        padding-top: 10px;
+    }
+
+    /* Make the image fully responsive */
+    .carousel-inner img {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    /* Carousel control icon modification */
+    .carousel-control-prev-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+    }
+    .carousel-control-next-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+    }
+
+    /* Boadinghouse Image Carousel -------------------------*/
+
+
+/* boardinghouse.php  >> */
+
+
+/* details << */
+    .owner-profile {
+        width: 25%;
+        max-width: 200px;
+        vertical-align: middle;
+        float: left;
+    }
+
+    .owner-det, .bhouse-det {
+        float: left;
+        list-style-type: none;
+        padding: 5px 5px 5px 15px;
+    }
+
+    .ratings a {
+        color:#f1c40f;
+    }
+
+    .ratings a:hover {
+        color:#f39c12;
+        text-decoration:none;
+    }
+
+    .num-of-rev {
+        font-size: 11px;
+    }
+
+    .my-pager {
+        padding: 5px;
+    }
+  
+/* details >> */
+
+
+
