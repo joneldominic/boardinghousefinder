@@ -15,8 +15,19 @@
 
     $ownerInfo = $ownerProfControl->getOwnerInformation($_SESSION["ownerID"]);
 
+    // echo "shit";
     // Add Unit
-    if(isset($_POST['btnAddUnit'])) {
+    if(isset($_POST['btnAddUnit']) && isset($_FILES['imageFeatured'])) {
+
+        // $additionalImg_array = $unitControl->reArrayFiles($_FILES['additionalImg']);    
+        // print_r($additionalImg_array); die;
+
+        // if(count($additionalImg_array) > 1) {
+        //     $unitControl->pre_r($additionalImg_array); die;
+        // } else {
+        //     echo "additionalImg_array empty";  die;
+        // }
+
         $data = array( 'ownerID' => $_POST['ownerID'],
                         'unitname' => $_POST['unitname'],
                         'location' => $_POST['location'],
@@ -25,10 +36,13 @@
                         'accomodation' => $_POST['accomodation'],
                         'monthlyrate' => $_POST['monthlyrate'],
                         'description' => $_POST['description'],
-                        'status' => $_POST['status']
+                        'status' => $_POST['status'],
+                        'featureImgTempPath' => $_FILES['imageFeatured']["tmp_name"],
+                        'additionalImg_array' => $unitControl->reArrayFiles($_FILES['additionalImg'])
                 );
     
         $addunit_res = $unitControl->addUnit($data);
+
 
         if($addunit_res === TRUE) {
 
@@ -40,6 +54,7 @@
                         <strong>Unit Added Succesfully!</strong>
                     </div>
                 ";
+
         } else {
             // Display Error
             echo"  <div class='alert alert-danger'>
@@ -81,107 +96,88 @@
 
     <div class="container my-addunit-cntr p-md-5 ">
             <div class="row card">
-                <div class="col-md-5 mx-auto">
+                <div class="col-sm-5 col-md-12 mx-auto">
                     <div class="form ">
-                        <div class="mb-3">
+                        <div class="">
                             <div class="col-md-12 text-center pt-md-4">
                                 <h3 >Add Unit</h3>
                             </div>
                         </div>
-                        
-                        <form method="POST" name="registration">
+
+                        <!-- col-md-5 mx-auto -->
+
+                        <form method="POST" name="registration" enctype="multipart/form-data">
                             <input type="hidden" name="ownerID" value="<?php echo $_SESSION['ownerID'] ?>">
 
-                            <div class="form-group">
-                                <label for="unitname">Unit Name</label>
-                                <input type="text"  name="unitname" class="form-control" id="unitname" placeholder="Enter Unit Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="location">Location</label>
-                                <input type="text"  name="location" class="form-control" id="location" placeholder="Enter Unit Location" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="capacity">Capacity</label>
-                                <input type="number" name="capacity" id="capacity"  class="form-control" min="1" max="100" value="1" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="gender">Gender</label>
-                                <select id="gender" name="gender" class="form-control" >
-                                        <option value=0 selected>Male</option>
-                                        <option value=1>Female</option>
-                                        <option value=2>Male/Female</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="accomodation">Accomodation</label>
-                                <select id="accomodation" name="accomodation" class="form-control" >
-                                        <option value=0 selected>Bed Spacer</option>
-                                        <option value=1>Room</option>
-                                        <option value=2>Apartment</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="monthlyrate">Rate (Monthly)</label>
-                                <input type="number" name="monthlyrate" class="form-control" id="monthlyrate" min="0.01" step="0.01" value="500.00" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Description</label>
-                                <textarea name="description" class="description" id="description" rows="5"  placeholder="Enter Unit Description/Features" cols="40" rows="5" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="status">Status</label>
-                                <select id="status" name="status" class="form-control" >
-                                        <option value=1 selected>Available</option>
-                                        <option value=2>Unavailable</option>
-                                </select>
-                            </div>
-                            
-                            
-<!--                             
-                            <div class="card form-group">
-                                <div class="card-header">Featured Image</div>
-                                <div class="card-body" id ="img-input-cntr">
-
-                                    <input type="file" name="imageFeatured" class="form-control" id="inputImages" required>
-                                    <input type="text"  name="imageDesc" class="form-control" id="imageDesc" placeholder="Enter Image Description" required>
-                                    
+                            <div class="row">
+                                <div class="col-md-6 p-md-5">
+                                    <div class="form-group">
+                                        <label for="unitname">Unit Name</label>
+                                        <input type="text"  name="unitname" class="form-control" id="unitname" placeholder="Enter Unit Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="location">Location</label>
+                                        <input type="text"  name="location" class="form-control" id="location" placeholder="Enter Unit Location" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="capacity">Capacity</label>
+                                        <input type="number" name="capacity" id="capacity"  class="form-control" min="1" max="100" value="1" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gender">Gender</label>
+                                        <select id="gender" name="gender" class="form-control" >
+                                                <option value=0 selected>Male</option>
+                                                <option value=1>Female</option>
+                                                <option value=2>Male/Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="accomodation">Accomodation</label>
+                                        <select id="accomodation" name="accomodation" class="form-control" >
+                                                <option value=0 selected>Bed Spacer</option>
+                                                <option value=1>Room</option>
+                                                <option value=2>Apartment</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="monthlyrate">Rate (Monthly)</label>
+                                        <input type="number" name="monthlyrate" class="form-control" id="monthlyrate" min="0.01" step="0.01" value="500.00" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea name="description" class="description" id="description" rows="5"  placeholder="Enter Unit Description/Features" cols="40" rows="5" required></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <select id="status" name="status" class="form-control" >
+                                                <option value=1 selected>Available</option>
+                                                <option value=2>Unavailable</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="card-footer">
-                                    <span id="addImgFieldBtn" class=" btn btn-link tx-tfm"><span class="fa fa-plus"></span> Add Image</span>
+
+                                <div class="col-md-6 p-md-5">
+                                    <div class="card form-group">
+                                        <div class="card-header">Featured Image</div>
+                                        <div class="card-body" id ="img-input-cntr">
+                                            <input type="file" name="imageFeatured" class="form-control" id="imageFeatured" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="card form-group">
+                                        <div class="card-header">Addional Image(s)</div>
+                                        <div class="card-body" id ="img-input-cntr">
+                                            <input type="file" name="additionalImg[]" class="form-control" id="additionalImg" value="" multiple="">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div> -->
+                            </div>
 
-
+                            <!-- Button -->
                             <div class="col-md-12 text-center mb-3">
                                 <button type="submit" class=" btn btn-block btn-primary tx-tfm" name="btnAddUnit" id="btnAddUnit">Save Unit</button>
                             </div>
                         </form>
-
-
-    <!-- triallllll ssssssssssssssssssssssssss -->
-                        <!-- <form method="POST" name="image_form">
-                            <div class="card form-group">
-                                <div class="card-header">Image(s)</div>
-                                <div class="card-body" id ="img-input-cntr">
-
-                                    <input type="file" name="image" class="form-control" id="image" required>
-                                    <input type="text"  name="imageDesc" class="form-control" id="imageDesc" placeholder="Enter Image Description" required>
-                                    
-                                </div>
-                                <div class="card-footer">
-                                    <span id="addImgFieldBtn" class=" btn btn-link tx-tfm"><span class="fa fa-plus"></span> Add Image</span>
-                                </div>
-                            </div>
-                        
-                            <div class="col-md-12 text-center mb-3">
-                                <button type="submit" class="btn btn-block btn-primary tx-tfm" name="btnUploadImage" id="btnUploadImage">Upload Image</button>
-                            </div>
-                        </form> -->
-
-    <!-- triallllll ssssssssssssssssssssssssss -->
-
-
-
                     </div>
                 </div>
             </div>

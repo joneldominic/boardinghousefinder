@@ -23,21 +23,12 @@
             <div class="carousel-inner">
                 <div class="carousel-item active text-center">
                     <img src="images/sample-unit.jpeg" alt="Los Angeles">
-                    <div class="carousel-caption">
-                        <p>Front View</p>
-                    </div>   
                 </div>
                 <div class="carousel-item text-center">
                     <img src="images/sample-unit.jpeg" alt="Chicago">
-                    <div class="carousel-caption">
-                        <p>Kitchen</p>
-                    </div>   
                 </div>
                 <div class="carousel-item text-center">
                     <img src="images/sample-unit.jpeg" alt="New York">
-                    <div class="carousel-caption">
-                        <p>Confort Room</p>
-                    </div>   
                 </div>
             </div>
 
