@@ -1,5 +1,5 @@
     <!-- Footer -->
-    <footer class="py-3 bg-dark mt-md-3 fixed-bottom">
+    <footer class="py-3 bg-dark mt-md-3 ">
         <div class="container">
             <p class="m-0 text-center text-white">Hackathon 2019</p>
         </div>

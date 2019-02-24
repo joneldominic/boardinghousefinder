@@ -53,7 +53,7 @@
                     <div class="form ">
                         <div class="mb-3">
                             <div class="col-md-12 text-center">
-                                <h1 >Signup</h1>
+                                <h1 >Create Account</h1>
                             </div>
                         </div>
                         

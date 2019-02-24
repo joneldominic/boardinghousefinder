@@ -57,7 +57,7 @@
                         
                         <div class="mb-3">
                             <div class="col-md-12 text-center">
-                                <h1>Login</h1>
+                                <h1>Welcome</h1>
                             </div>
                         </div>
                         

@@ -6,12 +6,51 @@
     }
     
     include_once('includes/header.php');
-
     include_once('controller/OwnerProfileController.php');
+    include_once('controller/UnitController.php');
+
 
     $ownerProfControl = new OwnerProfileController;
+    $unitControl = new UnitController;
+
     $ownerInfo = $ownerProfControl->getOwnerInformation($_SESSION["ownerID"]);
+
+    // Add Unit
+    if(isset($_POST['btnAddUnit'])) {
+        $data = array( 'ownerID' => $_POST['ownerID'],
+                        'unitname' => $_POST['unitname'],
+                        'location' => $_POST['location'],
+                        'capacity' => $_POST['capacity'],
+                        'gender' => $_POST['gender'],
+                        'accomodation' => $_POST['accomodation'],
+                        'monthlyrate' => $_POST['monthlyrate'],
+                        'description' => $_POST['description'],
+                        'status' => $_POST['status']
+                );
+    
+        $addunit_res = $unitControl->addUnit($data);
+
+        if($addunit_res === TRUE) {
+
+            //If true then add image... ??
+
+            Header('Location: addunit.php');
+
+            echo"  <div class='alert alert-success' role='alert'>
+                        <strong>Unit Added Succesfully!</strong>
+                    </div>
+                ";
+        } else {
+            // Display Error
+            echo"  <div class='alert alert-danger'>
+                        <strong>Error!</strong>
+                    </div>
+                ";
+        }
+    }
+
     // print_r($ownerInfo);
+
 ?>
 
     <nav class="navbar navbar-light bg-light navbar-expand-lg">
@@ -40,8 +79,6 @@
         </div>
     </nav>
 
-
-
     <div class="container my-addunit-cntr p-md-5 ">
             <div class="row card">
                 <div class="col-md-5 mx-auto">
@@ -52,56 +89,99 @@
                             </div>
                         </div>
                         
-                        <form action="#" name="registration">
+                        <form method="POST" name="registration">
+                            <input type="hidden" name="ownerID" value="<?php echo $_SESSION['ownerID'] ?>">
+
                             <div class="form-group">
                                 <label for="unitname">Unit Name</label>
-                                <input type="text"  name="unitname" class="form-control" id="unitname" placeholder="Enter Unit Name">
+                                <input type="text"  name="unitname" class="form-control" id="unitname" placeholder="Enter Unit Name" required>
                             </div>
                             <div class="form-group">
                                 <label for="location">Location</label>
-                                <input type="text"  name="location" class="form-control" id="location" placeholder="Enter Unit Location">
+                                <input type="text"  name="location" class="form-control" id="location" placeholder="Enter Unit Location" required>
                             </div>
                             <div class="form-group">
                                 <label for="capacity">Capacity</label>
-                                <input type="number" name="capacity" id="capacity"  class="form-control" min="1" max="100" value="1">
+                                <input type="number" name="capacity" id="capacity"  class="form-control" min="1" max="100" value="1" required>
                             </div>
                             <div class="form-group">
                                 <label for="gender">Gender</label>
-                                <select id="gender" class="form-control" >
-                                        <option selected>Male</option>
-                                        <option>Female</option>
-                                        <option>Male/Female</option>
+                                <select id="gender" name="gender" class="form-control" >
+                                        <option value=0 selected>Male</option>
+                                        <option value=1>Female</option>
+                                        <option value=2>Male/Female</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="accomodation">Accomodation</label>
-                                <select id="accomodation" class="form-control" >
-                                        <option selected>Bed Spacer</option>
-                                        <option>Room</option>
-                                        <option>Apartment</option>
+                                <select id="accomodation" name="accomodation" class="form-control" >
+                                        <option value=0 selected>Bed Spacer</option>
+                                        <option value=1>Room</option>
+                                        <option value=2>Apartment</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="monthlyrate">Rate (Monthly)</label>
-                                <input type="number" name="monthlyrate" class="form-control" id="monthlyrate" min="0.01" step="0.01" value="500.00">
+                                <input type="number" name="monthlyrate" class="form-control" id="monthlyrate" min="0.01" step="0.01" value="500.00" required>
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea name="description" class="description" id="description" rows="5"  placeholder="Enter Unit Description/Features" cols="40" rows="5"></textarea>
+                                <textarea name="description" class="description" id="description" rows="5"  placeholder="Enter Unit Description/Features" cols="40" rows="5" required></textarea>
                             </div>
-
                             <div class="form-group">
-                                <label for="image">Image(s):</label>
-                                <input type="file" name="image" class="image" id="image">
-                              
+                                <label for="status">Status</label>
+                                <select id="status" name="status" class="form-control" >
+                                        <option value=1 selected>Available</option>
+                                        <option value=2>Unavailable</option>
+                                </select>
                             </div>
+                            
+                            
+<!--                             
+                            <div class="card form-group">
+                                <div class="card-header">Featured Image</div>
+                                <div class="card-body" id ="img-input-cntr">
 
+                                    <input type="file" name="imageFeatured" class="form-control" id="inputImages" required>
+                                    <input type="text"  name="imageDesc" class="form-control" id="imageDesc" placeholder="Enter Image Description" required>
+                                    
+                                </div>
+                                <div class="card-footer">
+                                    <span id="addImgFieldBtn" class=" btn btn-link tx-tfm"><span class="fa fa-plus"></span> Add Image</span>
+                                </div>
+                            </div> -->
 
 
                             <div class="col-md-12 text-center mb-3">
-                                <button type="submit" class=" btn btn-block btn-primary tx-tfm" id="btnAddUnit">Save Unit</button>
+                                <button type="submit" class=" btn btn-block btn-primary tx-tfm" name="btnAddUnit" id="btnAddUnit">Save Unit</button>
                             </div>
                         </form>
+
+
+    <!-- triallllll ssssssssssssssssssssssssss -->
+                        <!-- <form method="POST" name="image_form">
+                            <div class="card form-group">
+                                <div class="card-header">Image(s)</div>
+                                <div class="card-body" id ="img-input-cntr">
+
+                                    <input type="file" name="image" class="form-control" id="image" required>
+                                    <input type="text"  name="imageDesc" class="form-control" id="imageDesc" placeholder="Enter Image Description" required>
+                                    
+                                </div>
+                                <div class="card-footer">
+                                    <span id="addImgFieldBtn" class=" btn btn-link tx-tfm"><span class="fa fa-plus"></span> Add Image</span>
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-12 text-center mb-3">
+                                <button type="submit" class="btn btn-block btn-primary tx-tfm" name="btnUploadImage" id="btnUploadImage">Upload Image</button>
+                            </div>
+                        </form> -->
+
+    <!-- triallllll ssssssssssssssssssssssssss -->
+
+
+
                     </div>
                 </div>
             </div>
