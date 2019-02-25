@@ -18,9 +18,18 @@
     $unitControl = new UnitController;
     $cdHandler = new codedDataHandler;
 
-    $units = $unitControl->getUnitsView(1);
+    // $units = $unitControl->getUnitsView(1);
 
 
+
+    if(isset($_GET['query'])) {
+        echo "Query Found";
+        $query = $_GET['query'];
+        $units = $unitControl->getUnitsView($query);
+        
+    } else {
+        $units = $unitControl->getUnitsView(1);
+    }
 
 
     // if(isset($_GET['gender'])) {
@@ -35,7 +44,7 @@
 
 ?>  
     <!-- Search Bar -->
-    <div class="my-search-bar">
+    <!-- <div class="my-search-bar">
         <div class="row text-center pb-4">
             <div class="col-md-12">
                 <h2>Find your ideal house for learning</h2>
@@ -90,12 +99,12 @@
                                 </div>
                             </div>
                     
-                            <!-- <div class="col-md-2 text-center">
+                            <div class="col-md-2 text-center">
                                 <button type="button" class="btn btn-dark">
                                     <span class="fas fa-search h6"></span>    
                                     Search House
                                 </button>
-                            </div> -->
+                            </div>
 
                         </div>
 
@@ -103,7 +112,13 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
+
+
+
+
+
+
 
 
 

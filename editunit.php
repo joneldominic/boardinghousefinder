@@ -213,10 +213,10 @@
 
                             <div class="row">
                                 <div class="col-md-6 text-center mb-3">
-                                    <button type="submit" class=" btn btn-block btn-primary tx-tfm" name ="btnUpdateUnit" id="btnUpdateUnit">Update Unit</button>
+                                    <button type="submit" class=" btn btn-block btn-primary tx-tfm" name ="btnUpdateUnit" id="btnUpdateUnit"><span class="fa fa-edit"></span> Update Unit</button>
                                 </div>
                                 <div class="col-md-6 text-center mb-3">
-                                    <button type="submit" class=" btn btn-block btn-primary tx-tfm" name ="btnDelete" id="btnDelete">Delete Unit</button>
+                                    <button type="submit" class=" btn btn-block btn-primary tx-tfm" name ="btnDelete" id="btnDelete"><span class="fa fa-trash"></span> Delete Unit</button>
                                 </div>
                             </div>
 

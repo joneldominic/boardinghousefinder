@@ -37,7 +37,7 @@
                     <a class="nav-link" href="addunit.php"><span class="fa fa-plus"></span> Add Unit</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="updateProfile.php"><span class="fa fa-user"></span> Update Profile</a>
+                    <a class="nav-link" href="updateProfile.php?ownerID=<?php echo $_GET['ownerID'] ?>"><span class="fa fa-user"></span> Update Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="controller/logout.php"><span class="fa fa-sign-out-alt"></span> Sign-out</a>

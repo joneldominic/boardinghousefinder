@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    if (!isset($_SESSION['isloggedin'])) {
+    if (!isset($_SESSION['isloggedin']) || !isset($_GET['ownerID'])) {
         Header('Location: login.php'); 
     }
     
