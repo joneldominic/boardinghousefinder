@@ -30,7 +30,7 @@
                     <a class="nav-link" href="addunit.php"><span class="fa fa-plus"></span> Add Unit</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="ownedunit.php"><span class="fa fa-user"></span> 
+                    <a class="nav-link" href="ownedunit.php?ownerID=<?php echo $_SESSION['ownerID']?>"><span class="fa fa-user"></span> 
                         <?php
                             echo $ownerInfo["firstName"]. " ".$ownerInfo["lastName"];
                         ?>
@@ -100,9 +100,15 @@
 
 
 
-                            <div class="col-md-12 text-center mb-3">
-                                <button type="submit" class=" btn btn-block btn-primary tx-tfm" id="btnUpdateUnit">Update Unit</button>
+                            <div class="row">
+                                <div class="col-md-6 text-center mb-3">
+                                    <button type="submit" class=" btn btn-block btn-primary tx-tfm" name ="btnUpdateUnit" id="btnUpdateUnit">Update Unit</button>
+                                </div>
+                                <div class="col-md-6 text-center mb-3">
+                                    <button type="submit" class=" btn btn-block btn-primary tx-tfm" name ="btnDelete" id="btnDelete">Delete Unit</button>
+                                </div>
                             </div>
+
                         </form>
                     </div>
                 </div>

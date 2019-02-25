@@ -22,7 +22,7 @@
                 <a class="nav-link" href="addunit.php"><span class="fa fa-plus"></span> Add Unit</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="ownedunit.php"><span class="fa fa-user"></span> 
+                <a class="nav-link" href="ownedunit.php?ownerID=<?php echo $_SESSION['ownerID']?>"><span class="fa fa-user"></span> 
                     <?php
                         echo $ownerInfo["firstName"]. " ".$ownerInfo["lastName"];
                     ?>

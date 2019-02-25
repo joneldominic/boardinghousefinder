@@ -20,7 +20,15 @@
 
     $units = $unitControl->getUnitsView(1);
 
-    
+
+
+
+    // if(isset($_GET['gender'])) {
+    //     // echo "Yeah Boy"; 
+    //     $units = $unitControl->getUnitsView("gender=".$_GET['gender']);
+    // } else {
+    //     $units = $unitControl->getUnitsView(1);
+    // }
     
 
 
@@ -54,9 +62,9 @@
                                 <div class="form-group ">
                                     <select id="inputState" class="form-control" >
                                         <option selected>Gender</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                        <option>Male/Female</option>
+                                        <option value="0">Male</option>
+                                        <option value="1">Female</option>
+                                        <option value="2">Male/Female</option>
                                     </select>
                                 </div>
                             </div>
@@ -82,12 +90,12 @@
                                 </div>
                             </div>
                     
-                            <div class="col-md-2 text-center">
+                            <!-- <div class="col-md-2 text-center">
                                 <button type="button" class="btn btn-dark">
                                     <span class="fas fa-search h6"></span>    
                                     Search House
                                 </button>
-                            </div>
+                            </div> -->
 
                         </div>
 
@@ -100,7 +108,6 @@
 
 
     <!-- List of units -->
-
     
     <?php if (is_array($units)) {?>
 
@@ -111,31 +118,75 @@
             <?php   if (!fmod($i,2)){ ?>
                         <div class="row">
             <?php   }?>
-                            <div class="col-md-6">
-                                <div class="card bhouse-cntr">
+                           
+            <?php           if(isset($_SESSION['ownerID']) && $_SESSION['ownerID'] == $unit['tbl_owner_ownerID']) {?>
 
-            <?php                   $imageHolder = 'data:image/jpeg;base64,'.base64_encode($unit['featuredImg']); ?>
+                                <div class="col-md-6">
+                                                <div class="card bhouse-cntr">
 
-                                    <img class="card-img-top" src="<?php echo $imageHolder ?>"  alt="Card image cap">
-                                    <div class="card-block">
-                                        <h5 class="card-title text-center mt-2"><?php echo $unit['unitName'] ?></h5>
-                                        <ul class="bhouse-det">
-                                            <li>Accomodation: <?php echo $cdHandler->getAccomodation($unit['accomodation']) ?></li>
-                                            <li>Gender: <?php echo $cdHandler->getGender($unit['gender']) ?></li>
-                                            <li>Monthly Rate: &#8369; <?php echo $unit['monthlyRate'] ?></li>
-                                            <li>Location: <?php echo $unit['location'] ?></li>
-                                        </ul>
-                                    </div>
-                                    <div class="card-footer">
-                                        <p class="card-text text-center">
-                                            <a href="boardinghouse.php?id=<?php echo $unit['unitID']; ?>">
-                                                <span class="fa fa-eye"></span>
-                                                View Details
-                                            </a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+            <?php                                   $imageHolder = 'data:image/jpeg;base64,'.base64_encode($unit['featuredImg']); ?>
+
+                                                    <img class="card-img-top" src="<?php echo $imageHolder ?>"  alt="Card image cap">
+                                                    <div class="card-block">
+                                                        <h5 class="card-title text-center mt-2"><?php echo $unit['unitName'] ?></h5>
+                                                        <ul class="bhouse-det">
+                                                            <li>Accomodation: <?php echo $cdHandler->getAccomodation($unit['accomodation']) ?></li>
+                                                            <li>Gender: <?php echo $cdHandler->getGender($unit['gender']) ?></li>
+                                                            <li>Monthly Rate: &#8369; <?php echo $unit['monthlyRate'] ?></li>
+                                                            <li>Location: <?php echo $unit['location'] ?></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <p class="card-text text-center">
+                                                           <div class="row">
+                                                                <div class="col text-center">
+                                                                    <a href="editunit.php?id=<?php echo $unit['unitID']; ?>">
+                                                                        <span class="fa fa-eye"></span>
+                                                                        Edit Unit
+                                                                    </a>
+                                                                </div>
+                                                                
+                                                                <div class="col text-center">
+                                                                    <a href="boardinghouse.php?id=<?php echo $unit['unitID']; ?>">
+                                                                        <span class="fa fa-eye"></span>
+                                                                        View Details
+                                                                    </a>
+                                                                </div>
+                                                           </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+            <?php           } else {?> 
+                                            <div class="col-md-6">
+                                                <div class="card bhouse-cntr">
+
+            <?php                                   $imageHolder = 'data:image/jpeg;base64,'.base64_encode($unit['featuredImg']); ?>
+
+                                                    <img class="card-img-top" src="<?php echo $imageHolder ?>"  alt="Card image cap">
+                                                    <div class="card-block">
+                                                        <h5 class="card-title text-center mt-2"><?php echo $unit['unitName'] ?></h5>
+                                                        <ul class="bhouse-det">
+                                                            <li>Accomodation: <?php echo $cdHandler->getAccomodation($unit['accomodation']) ?></li>
+                                                            <li>Gender: <?php echo $cdHandler->getGender($unit['gender']) ?></li>
+                                                            <li>Monthly Rate: &#8369; <?php echo $unit['monthlyRate'] ?></li>
+                                                            <li>Location: <?php echo $unit['location'] ?></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <p class="card-text text-center">
+                                                            <a href="boardinghouse.php?id=<?php echo $unit['unitID']; ?>">
+                                                                <span class="fa fa-eye"></span>
+                                                                View Details
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+            <?php           }?>
+            
             <?php   if (fmod($i,2)){ ?>
                         </div>
             <?php   }?>
@@ -151,8 +202,6 @@
         </div>
 
     <?php } ?>
-    
-
 
 <hr>
 

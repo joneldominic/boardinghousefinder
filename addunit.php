@@ -69,7 +69,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="ownedunit.php"><span class="fa fa-user"></span> 
+                    <a class="nav-link" href="ownedunit.php?ownerID=<?php echo $_SESSION['ownerID']?>"><span class="fa fa-user"></span> 
                         <?php
                             echo $ownerInfo["firstName"]. " ".$ownerInfo["lastName"];
                         ?>
@@ -99,7 +99,7 @@
 
                             <!-- Dummy Ratings -->
                             <input type="hidden" name="stars" value="<?php echo rand(1,4) ?>">
-                            <input type="hidden" name="review" value="<?php echo rand (1,200) ?>">
+                            <input type="hidden" name="review" value="<?php echo rand (1,100) ?>">
 
                             <div class="row">
                                 <div class="col-md-6 p-md-5">

@@ -50,6 +50,16 @@
     </head>
 
     <body>
+
+        <nav class="navbar navbar-light bg-light navbar-expand-lg">
+            <a class="navbar-brand" href="index.php">
+                <img src="images/bhouse.jpeg" width="30" height="30" class="d-inline-block align-top" alt="">
+                Boardinghouse Finder
+            </a>
+        </nav>
+
+        
+
         <div class="container">
             <div class="row">
 			    <div class="col-md-5 mx-auto">

@@ -5,5 +5,5 @@ unset($_SESSION['username']);
 unset($_SESSION['isloggedin']);
 session_destroy(); // destroy existing session
 
-header("Location: ../login.php");
+header("Location: ../index.php");
 ?>

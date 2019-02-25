@@ -86,7 +86,7 @@ class UnitController {
         $db = new config; // create config instance
         $conn = $db->dbconnect(); // getting the connection
 
-        $qry = "SELECT `unitID`, `unitName`, `location`, `gender`, `accomodation`, `monthlyRate`, `rating`, `reviewCount`, `featuredImg` FROM `tbl_unit` WHERE $query_condition ORDER BY `unitName` ASC";
+        $qry = "SELECT `unitID`, `tbl_owner_ownerID`, `unitName`, `location`, `gender`, `accomodation`, `monthlyRate`, `rating`, `reviewCount`, `featuredImg` FROM `tbl_unit` WHERE $query_condition ORDER BY `unitName` ASC";
         $res = $conn->query($qry);
 
         $units = array();
@@ -106,37 +106,78 @@ class UnitController {
 
     }
 
+    function getUnitsDetail($unitID) {
+        $db = new config; // create config instance
+        $conn = $db->dbconnect(); // getting the connection
 
-    // public function getPosts($query_condition) {
+        $qryDetails = "SELECT 
+                        o.tbl_owner_ownerID, 
+                        o.firstName AS ownerFName, 
+                        o.lastName AS ownerLName, 
+                        o.address AS ownerAddress, 
+                        o.phoneNumber, 
+                        u.unitName, 
+                        u.location AS unitLocation, 
+                        u.capacity, 
+                        u.gender, 
+                        u.accomodation, 
+                        u.monthlyRate,
+                        u.description, 
+                        u.status, 
+                        u.dateUpdated, 
+                        u.rating, 
+                        u.reviewCount,
+                        u.featuredImg
+                        FROM tbl_ownerInfo as o 
+                        INNER JOIN tbl_unit as u 
+                        ON o.tbl_owner_ownerID = u.tbl_owner_ownerID 
+                        WHERE u.unitID = $unitID";
+
+        $qryImages = "SELECT image FROM tbl_unitImage WHERE tbl_unit_unitID = $unitID";
+
+        $resDetails = $conn->query($qryDetails);
+        $resImages = $conn->query($qryImages);
+
+        $unitDetails = array();
+        $unitImages = array();
+
+
+        // Min Max Unit ID
+        $qryMaxUnit = "SELECT MAX(unitID) AS maxID FROM tbl_unit";
+        $qryMinUnit = "SELECT MIN(unitID) AS minID FROM tbl_unit";
+        $resMax = $conn->query($qryMaxUnit);
+        $resMin = $conn->query($qryMinUnit);
+        $unitMaxID = array();  
+        $unitMinID = array();
+        
       
-    //     // $qry = "SELECT * FROM posts WHERE user_id LIKE '$userID' AND privacy=1 OR privacy=2 ORDER BY date_posted DESC";
-    //     $qry = "SELECT * FROM posts WHERE $query_condition ORDER BY date_posted DESC";
-    //     $res = $conn->query($qry);
 
-    //     $post_ID = array();
-    //     $post_userID = array();
-    //     $post_titles = array();
-    //     $post_contents = array();
-    //     $post_datePosted = array();
-    //     $post_privacy = array();
+        if ($resDetails->num_rows > 0) {
+            while ($row = $resDetails->fetch_assoc()) {
+                array_push($unitDetails, $row);
+            }
 
-    //     if ($res->num_rows > 0) {
-    //         while ($row = $res->fetch_assoc()) {
-    //             array_push($post_ID, $row['id']);
-    //             array_push($post_userID, $row['user_id']);
-    //             array_push($post_titles, $row['title']);
-    //             array_push($post_contents, $row['content']);
-    //             array_push($post_datePosted, $row['date_posted']);
-    //             array_push($post_privacy, $row['privacy']);
-    //         }
+            while ($row = $resImages->fetch_assoc()) {
+                array_push($unitImages, $row);
+            }
 
-    //         $conn->close();
-    //         return array($post_ID, $post_userID, $post_titles, $post_contents, $post_datePosted, $post_privacy);
-    //     } else {
-    //         $conn->close();
-    //         return null;
-    //     }
-    // }
+            while ($rowMax = $resMax->fetch_assoc()) {
+                array_push($unitMaxID, $rowMax);
+            }
+
+            while ($rowMin = $resMin->fetch_assoc()) {
+                array_push($unitMinID, $rowMin);
+            }
+
+
+            $conn->close();
+            return array($unitDetails, $unitImages, $unitMaxID, $unitMinID);
+        } else {
+            $conn->close();
+            return null;
+        }
+    }
+
 
 }
 

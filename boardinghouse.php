@@ -8,6 +8,25 @@
     } else {
         include('includes/navbar/navbar(nouser).php');
     }
+
+    include_once('controller/UnitController.php');
+    include_once('controller/codedDataHandler.php');
+
+
+    $unitControl = new UnitController;
+    $cdHandler = new codedDataHandler;
+
+
+
+    if(isset($_GET['id'])) {
+        
+        list($unitDetails, $unitImages, $resMax, $resMin) = $unitControl->getUnitsDetail($_GET['id']);
+
+    } else {
+        Header('Location: index.php');
+    }
+    
+
 ?>      
 
     <!-- Boardinghouse unit Carousel -->
@@ -22,82 +41,96 @@
 
             <div class="carousel-inner">
                 <div class="carousel-item active text-center">
-                    <img src="images/sample-unit.jpeg" alt="Los Angeles">
+                    <img src=<?php echo 'data:image/jpeg;base64,'.base64_encode($unitDetails[0]['featuredImg']); ?> alt="Featured Image">
                 </div>
-                <div class="carousel-item text-center">
-                    <img src="images/sample-unit.jpeg" alt="Chicago">
-                </div>
-                <div class="carousel-item text-center">
-                    <img src="images/sample-unit.jpeg" alt="New York">
-                </div>
+
+                <?php if (count($unitImages)>0) { ?>
+                    <?php foreach ($unitImages as $image) {?>
+                        <div class="carousel-item text-center">
+                            <img src=<?php echo 'data:image/jpeg;base64,'.base64_encode($image['image']); ?> alt="Featured Image">
+                        </div>
+                    <?php }?>
+                <?php }?>
+               
             </div>
 
-            <a class="carousel-control-prev" href="#bhouse" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#bhouse" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
+            <?php if (count($unitImages)>0) { ?>
+                <a class="carousel-control-prev" href="#bhouse" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#bhouse" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+
+            <?php }?>
+
         </div>
 
         <hr />
 
-        <h3 class="text-center">Tapang's Boardinghouse</h3>
+        <h3 class="text-center"><?php echo $unitDetails[0]["unitName"]; ?></h3>
         <hr />
         <div class="row">
             <div class="col-md-6">
                 <img class="img-circle img-responsive owner-profile" src="images/temp-profile.jpeg" alt="Owner's Profile">
                 <ul class="owner-det">
-                    <li><span class="fa fa-user"></span> Jonel Dominic Tapang</li>
-                    <li><span class="fa fa-location-arrow"></span> Brgy. Pangasugan, Baybay City, Leyte </li>
-                    <li><span class="fa fa-mobile"></span> 09087863725</li>
+                    <li><span class="fa fa-user"></span><?php echo " " . $unitDetails[0]["ownerFName"] ." ". $unitDetails[0]["ownerLName"]; ?></li>
+                    <li><span class="fa fa-location-arrow"></span> <?php echo " " .$unitDetails[0]["ownerAddress"]; ?> </li>
+                    <li><span class="fa fa-mobile"></span> <?php echo " " . $unitDetails[0]["phoneNumber"]; ?></li>
                 </ul>
             </div>
             <div class="col-md-6">
                 <ul class="bhouse-det">
-                    <li>Accomodation: Bedspacer</li>
-                    <li>Gender: Male</li>
-                    <li>Monthly Rate: &#8369; 500.00</li>
-                    <li>Status: Available</li>
+                    <li>Status: <?php echo $cdHandler->getStatus($unitDetails[0]['status']) ?></li>
+                    <li>Accomodation: <?php echo $cdHandler->getAccomodation($unitDetails[0]['accomodation']) ?></li>
+                    <li>Capacity: <?php echo $unitDetails[0]["capacity"]; ?></li>
+                    <li>Gender: <?php echo $cdHandler->getGender($unitDetails[0]['gender']) ?></li>
+                    <li>Monthly Rate: &#8369; <?php echo $unitDetails[0]['monthlyRate'] ?></li>
+                    <li>Location: <?php echo $unitDetails[0]['unitLocation'] ?></li>
                     <li class="ratings">
                             <span>Experience:
-                                    <a href="#">
-                                    <span class="fa fa-star"></span>
-                                </a>
-                                <a href="#">
-                                    <span class="fa fa-star"></span>
-                                </a>
-                                <a href="#">
-                                    <span class="fa fa-star"></span>
-                                </a> 
-                                <a href="#">
-                                    <span class="fa fa-star"></span>
-                                </a> 
-                                <a href="#">
-                                    <span class="fa fa-star"></span>
-                                </a>  
-                                <span class="num-of-rev">(136 Reviews)</span>                                     
+
+                                <? $star = $unitDetails[0]['rating']; ?>
+                                    <?php for($i=0; $i<$star; $i++ ) {?>
+                                        <a href="#">
+                                            <span class="fa fa-star"></span>
+                                        </a>
+                                <?php } ?>
+
+                                <span class="num-of-rev">(<?php echo $unitDetails[0]['reviewCount'] ?> Reviews)</span>                                     
                             </span>
                     </li>
-                    <li>Details: Free water, Free electricity...</li>
+                    <li>Details: <?php echo $unitDetails[0]['description'] ?> </li>
                 </ul>
             </div>
         </div>
 
         <hr />
-        
+
         <div class="row my-pager">
             <div class="col">
-                <span class="float-left ">
-                    <a href="#">❮ Previous House</a>
-                </span>
+                <?php if($_GET['id']-1 >= $resMin[0]['minID']) {?>
+                    <span class="float-left ">
+                        <a href="boardinghouse.php?id=<?php echo $_GET['id']-1 ?>">❮ Previous Unit</a>
+                    </span>
+                <?php } else {?>
+                    <span class="float-left ">
+                        <a class="btn disabled" >❮ Previous Unit</a>
+                    </span>
+                <?php } ?>
             </div>
             <div class="col">
-                <span class="float-right">
-                    <a href="#">Next House ❯</a>
-                </span>
+                <?php if($_GET['id']+1 <= $resMax[0]['maxID']) {?>
+                    <span class="float-right ">
+                        <a href="boardinghouse.php?id=<?php echo $_GET['id']+1 ?>">Next Unit ❯</a>
+                    </span>
+                <?php } else {?>
+                    <span class="float-right ">
+                        <a class="btn disabled" >Next Unit ❯</a>
+                    </span>
+                <?php } ?>
             </div>
         </div>
 

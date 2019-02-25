@@ -1,11 +1,24 @@
 <?php
     session_start();
 
-    if (!isset($_SESSION['isloggedin'])) {
+    if (!isset($_SESSION['isloggedin']) || !isset($_GET['ownerID'])) {
         Header('Location: login.php'); 
     }
 
     include_once('includes/header.php');
+
+
+    include_once('controller/UnitController.php');
+    include_once('controller/codedDataHandler.php');
+
+
+    $unitControl = new UnitController;
+    $cdHandler = new codedDataHandler;
+
+    $units = $unitControl->getUnitsView("tbl_owner_ownerID=".$_GET['ownerID']);
+
+
+
 ?>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-light bg-light navbar-expand-lg">
@@ -34,6 +47,91 @@
     </nav>
 
      <!-- List of units -->
+    
+     <?php if (is_array($units)) {?>
+
+        <div class="units-card container">
+
+            <?php $i=0; ?>
+            <?php foreach ($units as $unit)  {?>
+            <?php   if (!fmod($i,2)){ ?>
+                        <div class="row">
+            <?php   }?>
+
+                                <div class="col-md-6">
+                                    <div class="card bhouse-cntr">
+
+            <?php                       $imageHolder = 'data:image/jpeg;base64,'.base64_encode($unit['featuredImg']); ?>
+
+                                        <img class="card-img-top" src="<?php echo $imageHolder ?>"  alt="Card image cap">
+                                        <div class="card-block">
+                                            <h5 class="card-title text-center mt-2"><?php echo $unit['unitName'] ?></h5>
+                                            <ul class="bhouse-det">
+                                                <li>Accomodation: <?php echo $cdHandler->getAccomodation($unit['accomodation']) ?></li>
+                                                <li>Gender: <?php echo $cdHandler->getGender($unit['gender']) ?></li>
+                                                <li>Monthly Rate: &#8369; <?php echo $unit['monthlyRate'] ?></li>
+                                                <li>Location: <?php echo $unit['location'] ?></li>
+                                            </ul>
+                                        </div>
+                                        <div class="card-footer">
+                                            <p class="card-text text-center">
+                                            <div class="row">
+                                                    <div class="col text-center">
+                                                        <a href="editunit.php?id=<?php echo $unit['unitID']; ?>">
+                                                            <span class="fa fa-eye"></span>
+                                                            Edit Unit
+                                                        </a>
+                                                    </div>
+                                                    
+                                                    <div class="col text-center">
+                                                        <a href="boardinghouse.php?id=<?php echo $unit['unitID']; ?>">
+                                                            <span class="fa fa-eye"></span>
+                                                            View Details
+                                                        </a>
+                                                    </div>
+                                            </div>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+            <?php   if (fmod($i,2)){ ?>
+                        </div>
+            <?php   }?>
+            <?php   $i++;?>
+            <?php }?>
+
+        </div>
+
+        <?php } else {?>
+
+        <div class="alert alert-warning text-center">
+            <strong>Warning!</strong> No Data Available
+        </div>
+
+        <?php } ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <!--
      <div class="units-card container">
         <div class="row">
             <div class="col-md-6">
@@ -226,7 +324,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
 
