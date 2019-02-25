@@ -18,7 +18,23 @@
 
     if(isset($_GET['id'])) {
         
-        list($unitDetails, $unitImages, $resMax, $resMin) = $unitControl->getUnitsDetail($_GET['id']);
+        list($unitDetails, $unitImages) = $unitControl->getUnitsDetail($_GET['id']);
+        list($resMax, $resMin) = $unitControl->getMinMax();
+
+        if(!is_array($unitDetails)) {
+            
+            if($_GET['dir'] < 0) {  // Prev
+                if($_GET['id']-1 >= $resMin[0]['minID']) {
+                    $newID = $_GET['id']-1;
+                    Header('Location: boardinghouse.php?id='.$newID.'&dir=-1');
+                }
+            } else if ($_GET['dir'] > 0){ //Next
+                if($_GET['id']+1 <= $resMax[0]['maxID']) {
+                    $newID = $_GET['id']+1;
+                    Header('Location: boardinghouse.php?id='.$newID.'&dir=1');
+                }
+            }
+        }
 
     } else {
         Header('Location: index.php');
@@ -68,7 +84,7 @@
 
         <hr />
         
-        <?php if( $unitDetails[0]['tbl_owner_ownerID'] == $_SESSION['ownerID']) {?>
+        <?php if( isset($_SESSION['ownerID']) && $unitDetails[0]['tbl_owner_ownerID'] == $_SESSION['ownerID']) {?>
             <a href="editunit.php?id=<?php echo $_GET['id']?>"><h3 class="text-center"><span class="fa fa-edit"></span>  <?php echo $unitDetails[0]["unitName"]; ?></h3></a>
         <?php } else {?>
             <h3 class="text-center"><?php echo $unitDetails[0]["unitName"]; ?></h3>
@@ -119,7 +135,7 @@
             <div class="col">
                 <?php if($_GET['id']-1 >= $resMin[0]['minID']) {?>
                     <span class="float-left ">
-                        <a href="boardinghouse.php?id=<?php echo $_GET['id']-1 ?>">❮ Previous Unit</a>
+                        <a href="boardinghouse.php?id=<?php echo $_GET['id']-1 ?>&dir=-1">❮ Previous Unit</a>
                     </span>
                 <?php } else {?>
                     <span class="float-left ">
@@ -130,7 +146,7 @@
             <div class="col">
                 <?php if($_GET['id']+1 <= $resMax[0]['maxID']) {?>
                     <span class="float-right ">
-                        <a href="boardinghouse.php?id=<?php echo $_GET['id']+1 ?>">Next Unit ❯</a>
+                        <a href="boardinghouse.php?id=<?php echo $_GET['id']+1 ?>&dir=1">Next Unit ❯</a>
                     </span>
                 <?php } else {?>
                     <span class="float-right ">

@@ -141,6 +141,26 @@ class UnitController {
         $unitDetails = array();
         $unitImages = array();
 
+        if ($resDetails->num_rows > 0) {
+            while ($row = $resDetails->fetch_assoc()) {
+                array_push($unitDetails, $row);
+            }
+
+            while ($row = $resImages->fetch_assoc()) {
+                array_push($unitImages, $row);
+            }
+
+            $conn->close();
+            return array($unitDetails, $unitImages);
+        } else {
+            $conn->close();
+            return null;
+        }
+    }
+
+    public function getMinMax() {
+        $db = new config; // create config instance
+        $conn = $db->dbconnect(); // getting the connection
 
         // Min Max Unit ID
         $qryMaxUnit = "SELECT MAX(unitID) AS maxID FROM tbl_unit";
@@ -150,16 +170,7 @@ class UnitController {
         $unitMaxID = array();  
         $unitMinID = array();
         
-      
-
-        if ($resDetails->num_rows > 0) {
-            while ($row = $resDetails->fetch_assoc()) {
-                array_push($unitDetails, $row);
-            }
-
-            while ($row = $resImages->fetch_assoc()) {
-                array_push($unitImages, $row);
-            }
+        if ($resMax->num_rows > 0 && $resMin->num_rows>0) {
 
             while ($rowMax = $resMax->fetch_assoc()) {
                 array_push($unitMaxID, $rowMax);
@@ -171,7 +182,7 @@ class UnitController {
 
 
             $conn->close();
-            return array($unitDetails, $unitImages, $unitMaxID, $unitMinID);
+            return array($unitMaxID, $unitMinID);
         } else {
             $conn->close();
             return null;

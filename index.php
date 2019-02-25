@@ -22,14 +22,22 @@
 
 
 
-    if(isset($_GET['query'])) {
-        echo "Query Found";
-        $query = $_GET['query'];
-        $units = $unitControl->getUnitsView($query);
+    // if(isset($_GET['query'])) {
+
+
+
+
+
+
+
+
+    //     echo "Query Found";
+    //     $query = $_GET['query'];
+    //     $units = $unitControl->getUnitsView($query);
         
-    } else {
-        $units = $unitControl->getUnitsView(1);
-    }
+    // } else {
+        // $units = $unitControl->getUnitsView(1);
+    // }
 
 
     // if(isset($_GET['gender'])) {
@@ -38,13 +46,60 @@
     // } else {
     //     $units = $unitControl->getUnitsView(1);
     // }
+
+    if(isset($_GET['accomodation']) || isset($_GET['gender']) || isset($_GET['monthlyrate']) || isset($_GET['location'])  ) {
+        
+        // Accommodation
+        if($_GET['accomodation'] == "all") {
+            $accomodation = 'accomodation LIKE "%"';
+        } else {
+            $accomodation = 'accomodation = '. $_GET['accomodation'];
+        }
+
+        // Gender
+        if($_GET['gender'] == "all") {
+            $gender = ' AND gender LIKE "%"';
+        } else {
+            $gender = ' AND gender = '. $_GET['gender'];
+        }
+
+        // Monthly Rate
+        if ($_GET['monthlyrate'] == "all") {
+            $monthlyrate = ' AND monthlyRate LIKE "%"';
+        } else if ($_GET['monthlyrate'] == "0") {
+            $monthlyrate = ' AND monthlyRate BETWEEN 0.00 AND 499.00';
+        } else if ($_GET['monthlyrate'] == "1") {
+            $monthlyrate = ' AND monthlyRate BETWEEN 500.00 AND 999.00';
+        } else if ($_GET['monthlyrate'] == "2") {
+            $monthlyrate = ' AND monthlyRate BETWEEN 1000.00 AND 1499.00';
+        }  else if ($_GET['monthlyrate'] == "3") {
+            $monthlyrate = ' AND monthlyRate > 1500.00';
+        }
+
+        // Location
+        if($_GET['location'] == "all") {
+            $location = ' AND location LIKE "%"';            
+        } else {
+            $loc = $_GET['location'];
+            $location = ' AND location LIKE "%'.$loc.'%"';   
+        }
+
+
+        $units = $unitControl->getUnitsView($accomodation . $gender .  $monthlyrate . $location);
+    } else {
+        $units = $unitControl->getUnitsView(1);
+    }
+    
+
     
 
 
 
 ?>  
+
+
     <!-- Search Bar -->
-    <!-- <div class="my-search-bar">
+    <div class="my-search-bar">
         <div class="row text-center pb-4">
             <div class="col-md-12">
                 <h2>Find your ideal house for learning</h2>
@@ -56,55 +111,150 @@
                     <div class="card-body">
                         <div class="row justify-content-center">
                             <div class="col-md-2">
+                            <form method="GET">
                                 <div class="form-group">
-                                    <select id="inputState" class="form-control" >
-                                        <option selected>Location</option>
-                                        <option>Brgy. Gabas</option>
-                                        <option>Brgy. Guadalupe (Utod)</option>
-                                        <option>Brgy. Marcus (Utod)</option>
-                                        <option>Brgy. Pangasugan</option>
-                                        <option>Brgy. Patag</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group ">
-                                    <select id="inputState" class="form-control" >
-                                        <option selected>Gender</option>
-                                        <option value="0">Male</option>
-                                        <option value="1">Female</option>
-                                        <option value="2">Male/Female</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group ">
-                                    <select id="inputState" class="form-control" >
-                                        <option selected>Rate (Monthly)</option>
-                                        <option>Php 500-999</option>
-                                        <option>Php 999-1499</option>
-                                        <option>Php 1499 and Above</option>
+                                <h6>Accommodation</h6>
+                                    <select id="accomodation" name="accomodation" class="form-control">
                                         
+                                        <?php if(isset($_GET['accomodation']) && $_GET['accomodation'] != "all") {?>
+                                            <option value="all">All</option>
+                                            
+                                            <option value="0" 
+                                                <?php if($_GET['accomodation']==0) { echo "selected"; }?>
+                                                >Bed Spacer</option>
+
+                                            <option value="1" 
+                                                <?php if($_GET['accomodation']==1) { echo "selected"; }?>
+                                                >Room</option>
+
+                                            <option value="2" 
+                                                <?php if($_GET['accomodation']==2) { echo "selected"; }?>
+                                                >Apartment</option>
+                                        <?php } else {?>
+                                            <option value="all" selected>All</option>
+                                            <option value="0">Bed Spacer</option>
+                                            <option value="1">Room</option>
+                                            <option value="2">Apartment</option>
+                                        <?php } ?>
+
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group ">
-                                    <select id="inputState" class="form-control" >
-                                        <option selected>Accomodation</option>
-                                        <option>Bed Spacer</option>
-                                        <option>Room</option>
-                                        <option>Apartment</option>
-                                    </select>
                                 </div>
-                            </div>
-                    
-                            <div class="col-md-2 text-center">
-                                <button type="button" class="btn btn-dark">
-                                    <span class="fas fa-search h6"></span>    
-                                    Search House
-                                </button>
-                            </div>
+                                <div class="col-md-2">
+                                    <div class="form-group ">
+                                        <h6>Gender</h6>
+                                        <select id="gender" name="gender" class="form-control" >
+                                          
+                                            <?php if(isset($_GET['gender']) && $_GET['gender'] != "all") {?>
+                                                <option value="all">All</option>
+                                                
+                                                <option value="0" 
+                                                    <?php if($_GET['gender']==0) { echo "selected"; }?>
+                                                    >Male</option>
+
+                                                <option value="1" 
+                                                    <?php if($_GET['gender']==1) { echo "selected"; }?>
+                                                    >Female</option>
+
+                                                <option value="2" 
+                                                    <?php if($_GET['gender']==2) { echo "selected"; }?>
+                                                    >Male/Female</option>
+                                            <?php } else {?>
+                                                <option value="all" selected>All</option>
+                                                <option value="0">Male</option>
+                                                <option value="1">Female</option>
+                                                <option value="2">Male/Female</option>
+                                            <?php } ?>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group ">
+                                        <h6>Monthly Rate</h6>
+                                        <select id="monthlyrate" name="monthlyrate" class="form-control" >
+
+                                            <?php if(isset($_GET['monthlyrate']) && $_GET['monthlyrate'] != "all") {?>
+                                                <option value="all">All</option>
+                                                
+                                                <option value="0" 
+                                                    <?php if($_GET['monthlyrate']==0) { echo "selected"; }?>
+                                                    >Php 499 and Below</option>
+
+                                                <option value="1" 
+                                                    <?php if($_GET['monthlyrate']==1) { echo "selected"; }?>
+                                                    >Php 500-999</option>
+
+                                                <option value="2" 
+                                                    <?php if($_GET['monthlyrate']==2) { echo "selected"; }?>
+                                                    >Php 1000-1499</option>
+                                                <option value="3" 
+                                                    <?php if($_GET['monthlyrate']==3) { echo "selected"; }?>
+                                                    >Php 1500 and Above</option>
+                                            <?php } else {?>
+                                                <option value="all" selected>All</option>
+                                                <option value="0">Php 499 and Below</option>
+                                                <option value="1">Php 500-999</option>
+                                                <option value="2">Php 1000-1499</option>
+                                                <option value="3">Php 1500 and Above</option>
+
+                                            <?php } ?>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group ">
+                                        <h6>Location</h6>
+                                        <select id="location" name="location" class="form-control" >
+
+                                            <?php if(isset($_GET['location']) && $_GET['location'] != "all") {?>
+                                                <option value="all">All</option>
+                                                
+                                                <option value="Gabas" 
+                                                    <?php if($_GET['location']=="Gabas") { echo "selected"; }?>
+                                                    >Brgy. Gabas</option>
+
+                                                <option value="Utod" 
+                                                    <?php if($_GET['location']=="Utod") { echo "selected"; }?>
+                                                    >Brgy. Guadalupe (Utod)</option>
+
+                                                <option value="Marcus" 
+                                                    <?php if($_GET['location']=="Marcus") { echo "selected"; }?>
+                                                    >Brgy. Marcus</option>
+
+                                                <option value="Pangasugan" 
+                                                    <?php if($_GET['location']=="Pangasugan") { echo "selected"; }?>
+                                                    >Brgy. Pangasugan</option>
+
+                                                <option value="Patag" 
+                                                    <?php if($_GET['location']=="Patag") { echo "selected"; }?>
+                                                    >Brgy. Patag</option>
+
+                                            <?php } else {?>
+                                                <option value="all" selected>All</option>
+                                                <option value="Gabas">Brgy. Gabas</option>
+                                                <option value="Utod">Brgy. Guadalupe (Utod)</option>
+                                                <option value="Marcus">Brgy. Marcus</option>
+                                                <option value="Pangasugan">Brgy. Pangasugan</option>
+                                                <option value="Patag">Brgy. Patag</option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                        
+                                <div class="col-md-2 text-center pt-md-4">
+
+                                    <button id="btnSearchUnit" type="submit" class="btn btn-default">
+                                        <span class="fa fa-filter"></span>    
+                                        Add Filter
+                                    </button>
+                                    <a id="btnSearchUnit" href="index.php" class="btn btn-default">
+                                        <span class="fa fa-times h6"></span>    
+                                    </a>
+                                </div>
+
+                            </form>
 
                         </div>
 
@@ -112,13 +262,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
-
-
-
-
-
-
+    </div>
 
 
 
