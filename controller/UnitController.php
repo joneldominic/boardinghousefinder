@@ -11,12 +11,10 @@ class UnitController {
         $db->dbconnect();
     }
 
-
     public function addUnit($data)
     {
         $db = new config; // create config instance
         $conn = $db->dbconnect(); // getting the connection
-
 
         $ownerID = $data['ownerID'];
         $unitname = $data['unitname'];
@@ -28,12 +26,12 @@ class UnitController {
         $description = $data['description'];
         $status = $data['status'];
         $dateUpdated = date("F j, Y");   
+        $rating = $data['stars'];
+        $reviewCount = $data['review'];
         $binaryImg = addslashes(file_get_contents($data['featureImgTempPath']));
 
-
-        $qry_add_unit = "INSERT INTO `tbl_unit`(`tbl_owner_ownerID`, `unitName`, `location`, `capacity`, `gender`, `accomodation`, `monthlyRate`, `description`, `status`, `dateUpdated`, `featuredImg`) 
-                                        VALUES ($ownerID, '$unitname', '$location', $capacity, $gender, $accomodation, $monthlyrate, '$description', $status, '$dateUpdated', '$binaryImg')"; 
-
+        $qry_add_unit = "INSERT INTO `tbl_unit`(`tbl_owner_ownerID`, `unitName`, `location`, `capacity`, `gender`, `accomodation`, `monthlyRate`, `description`, `status`, `dateUpdated`,`rating`,`reviewCount`, `featuredImg`) 
+                                        VALUES ($ownerID, '$unitname', '$location', $capacity, $gender, $accomodation, $monthlyrate, '$description', $status, '$dateUpdated', '$rating', '$reviewCount', '$binaryImg')"; 
 
         // check the connection if successful
         if ($conn->query($qry_add_unit) === true) {
@@ -41,25 +39,17 @@ class UnitController {
             $latestUnitID = $conn->insert_id;
             $image_array = $data['additionalImg_array'];
 
-            // print_r($image_array); 
-            // echo $image_array[0]['size'];die;
-
             if($image_array[0]['size'] > 0) {
-                // echo "Naa Additional Image". count($image_array); die;
-
+               
                 for($i=0; $i<count($image_array); $i++){
                    
-                    // echo $image_array[$i]["tmp_name"]. "<hr/>"; 
-            
-                        
                     $binaryImg = addslashes(file_get_contents($image_array[$i]["tmp_name"]));
             
-                    // echo $binaryImg;
+                   
                            
                     $sql_query_insert = "INSERT INTO `tbl_unitImage` (`tbl_unit_unitID`, `image`) VALUES ('$latestUnitID', '$binaryImg')";
                             
                     if ($conn->query($sql_query_insert) === true) {
-                        // echo "Success"; die;
                         // Saved Succesfully
                     } else {
                         echo "Error";
@@ -68,37 +58,12 @@ class UnitController {
                 }
                 
             }
-
             return true;
         }
 
 
         $conn->close(); // close the connection
     }
-
-    public function addImage($data)
-    {
-        $db = new config; // create config instance
-        $conn = $db->dbconnect(); // getting the connection
-
-        
-
-        $unitID = 1;//$data['unitID'];
-        $description = $data['unitname'];
-        $image = $data['location'];
-       
-        $qry_add_image = "";
-
-        // check the connection if successful
-        if ($conn->query($qry_add_image) === true) {
-            return true;
-        }
-
-        $conn->close(); // close the connection
-    }
-    
-
-
 
     // Helper Functions
     function reArrayFiles($file_post) {
@@ -116,6 +81,62 @@ class UnitController {
         return $file_ary;
     }
 
+
+    function getUnitsView($query_condition) {
+        $db = new config; // create config instance
+        $conn = $db->dbconnect(); // getting the connection
+
+        $qry = "SELECT `unitID`, `unitName`, `location`, `gender`, `accomodation`, `monthlyRate`, `rating`, `reviewCount`, `featuredImg` FROM `tbl_unit` WHERE $query_condition ORDER BY `unitName` ASC";
+        $res = $conn->query($qry);
+
+        $units = array();
+
+        if ($res->num_rows > 0) {
+            while ($row = $res->fetch_assoc()) {
+                // print_r($row['location']);
+                array_push($units, $row);
+            }
+
+            $conn->close();
+            return $units;
+        } else {
+            $conn->close();
+            return null;
+        }
+
+    }
+
+
+    // public function getPosts($query_condition) {
+      
+    //     // $qry = "SELECT * FROM posts WHERE user_id LIKE '$userID' AND privacy=1 OR privacy=2 ORDER BY date_posted DESC";
+    //     $qry = "SELECT * FROM posts WHERE $query_condition ORDER BY date_posted DESC";
+    //     $res = $conn->query($qry);
+
+    //     $post_ID = array();
+    //     $post_userID = array();
+    //     $post_titles = array();
+    //     $post_contents = array();
+    //     $post_datePosted = array();
+    //     $post_privacy = array();
+
+    //     if ($res->num_rows > 0) {
+    //         while ($row = $res->fetch_assoc()) {
+    //             array_push($post_ID, $row['id']);
+    //             array_push($post_userID, $row['user_id']);
+    //             array_push($post_titles, $row['title']);
+    //             array_push($post_contents, $row['content']);
+    //             array_push($post_datePosted, $row['date_posted']);
+    //             array_push($post_privacy, $row['privacy']);
+    //         }
+
+    //         $conn->close();
+    //         return array($post_ID, $post_userID, $post_titles, $post_contents, $post_datePosted, $post_privacy);
+    //     } else {
+    //         $conn->close();
+    //         return null;
+    //     }
+    // }
 
 }
 

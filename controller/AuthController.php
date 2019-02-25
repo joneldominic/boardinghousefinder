@@ -23,7 +23,6 @@ class AuthController {
         // check the connection if successful
         if ($conn->query($qry_insert_owner) === true) {
 
-
             $owner_id = $conn->insert_id;
             $firstname = $data['firstname'];
             $lastname = $data['lastname'];

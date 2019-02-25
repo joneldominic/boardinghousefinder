@@ -15,18 +15,7 @@
 
     $ownerInfo = $ownerProfControl->getOwnerInformation($_SESSION["ownerID"]);
 
-    // echo "shit";
-    // Add Unit
     if(isset($_POST['btnAddUnit']) && isset($_FILES['imageFeatured'])) {
-
-        // $additionalImg_array = $unitControl->reArrayFiles($_FILES['additionalImg']);    
-        // print_r($additionalImg_array); die;
-
-        // if(count($additionalImg_array) > 1) {
-        //     $unitControl->pre_r($additionalImg_array); die;
-        // } else {
-        //     echo "additionalImg_array empty";  die;
-        // }
 
         $data = array( 'ownerID' => $_POST['ownerID'],
                         'unitname' => $_POST['unitname'],
@@ -38,15 +27,15 @@
                         'description' => $_POST['description'],
                         'status' => $_POST['status'],
                         'featureImgTempPath' => $_FILES['imageFeatured']["tmp_name"],
-                        'additionalImg_array' => $unitControl->reArrayFiles($_FILES['additionalImg'])
+                        'stars' => $_POST['stars'],
+                        'review' => $_POST['review'],
+                        'additionalImg_array' => $unitControl->reArrayFiles($_FILES['additionalImg']),
                 );
     
         $addunit_res = $unitControl->addUnit($data);
 
 
         if($addunit_res === TRUE) {
-
-            //If true then add image... ??
 
             Header('Location: addunit.php');
 
@@ -65,7 +54,6 @@
     }
 
     // print_r($ownerInfo);
-
 ?>
 
     <nav class="navbar navbar-light bg-light navbar-expand-lg">
@@ -108,6 +96,10 @@
 
                         <form method="POST" name="registration" enctype="multipart/form-data">
                             <input type="hidden" name="ownerID" value="<?php echo $_SESSION['ownerID'] ?>">
+
+                            <!-- Dummy Ratings -->
+                            <input type="hidden" name="stars" value="<?php echo rand(1,4) ?>">
+                            <input type="hidden" name="review" value="<?php echo rand (1,200) ?>">
 
                             <div class="row">
                                 <div class="col-md-6 p-md-5">

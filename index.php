@@ -11,6 +11,20 @@
 
     // print_r($_SESSION);
 
+    include_once('controller/UnitController.php');
+    include_once('controller/codedDataHandler.php');
+
+
+    $unitControl = new UnitController;
+    $cdHandler = new codedDataHandler;
+
+    $units = $unitControl->getUnitsView(1);
+
+    
+    
+
+
+
 ?>  
     <!-- Search Bar -->
     <div class="my-search-bar">
@@ -83,163 +97,64 @@
         </div>
     </div>
 
+
+
     <!-- List of units -->
-    <div class="units-card container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card bhouse-cntr">
-                    <img class="card-img-top" src="images/sample-unit.jpeg" alt="Card image cap">
-                    <div class="card-block">
-                        <ul class="bhouse-det">
-                            <h5 class="card-title">Gemma's Boardinghouse</h5>
-                            <li>Accomodation: Bedspacer</li>
-                            <li>Gender: Male</li>
-                            <li>Monthly Rate: &#8369; 500.00</li>
-                            <li class="ratings">
-                                <span>Experience:
-                                        <a href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a>
-                                        <a href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a>
-                                        <a href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a> 
-                                        <a href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a> 
-                                        <a href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a>  
-                                        <span class="num-of-rev">(136 Reviews)</span>                                     
-                                    </span>
-                            </li>   
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <p class="card-text text-right">
-                            <a href="boardinghouse.php">
-                                <span class="fa fa-eye"></span>
-                                View Details
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>    
-            <div class="col-md-6">
-                <div class="card bhouse-cntr">
-                    <img class="card-img-top" src="images/sample-unit.jpeg" alt="Card image cap">
-                    <div class="card-block">
-                        <ul class="bhouse-det">
-                            <h5 class="card-title">Gemma's Boardinghouse</h5>
-                            <li>Accomodation: Bedspacer</li>
-                            <li>Gender: Male</li>
-                            <li>Monthly Rate: &#8369; 500.00</li>
-                            <li class="ratings">
-                                <span>Experience:
-                                        <a href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a>
-                                        <a href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a>
-                                        <span class="num-of-rev">(12 Reviews)</span>                                     
-                                    </span>
-                            </li>   
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <p class="card-text text-right">
-                            <a href="boardinghouse.php">
-                                <span class="fa fa-eye"></span>
-                                View Details
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
+
+    
+    <?php if (is_array($units)) {?>
+
+        <div class="units-card container">
+        
+            <?php $i=0; ?>
+            <?php foreach ($units as $unit)  {?>
+            <?php   if (!fmod($i,2)){ ?>
+                        <div class="row">
+            <?php   }?>
+                            <div class="col-md-6">
+                                <div class="card bhouse-cntr">
+
+            <?php                   $imageHolder = 'data:image/jpeg;base64,'.base64_encode($unit['featuredImg']); ?>
+
+                                    <img class="card-img-top" src="<?php echo $imageHolder ?>"  alt="Card image cap">
+                                    <div class="card-block">
+                                        <h5 class="card-title text-center mt-2"><?php echo $unit['unitName'] ?></h5>
+                                        <ul class="bhouse-det">
+                                            <li>Accomodation: <?php echo $cdHandler->getAccomodation($unit['accomodation']) ?></li>
+                                            <li>Gender: <?php echo $cdHandler->getGender($unit['gender']) ?></li>
+                                            <li>Monthly Rate: &#8369; <?php echo $unit['monthlyRate'] ?></li>
+                                            <li>Location: <?php echo $unit['location'] ?></li>
+                                        </ul>
+                                    </div>
+                                    <div class="card-footer">
+                                        <p class="card-text text-center">
+                                            <a href="boardinghouse.php?id=<?php echo $unit['unitID']; ?>">
+                                                <span class="fa fa-eye"></span>
+                                                View Details
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+            <?php   if (fmod($i,2)){ ?>
+                        </div>
+            <?php   }?>
+            <?php   $i++;?>
+            <?php }?>
+
         </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card bhouse-cntr">
-                    <img class="card-img-top" src="images/sample-unit.jpeg" alt="Card image cap">
-                    <div class="card-block">
-                        <ul class="bhouse-det">
-                            <h5 class="card-title">Gemma's Boardinghouse</h5>
-                            <li>Accomodation: Bedspacer</li>
-                            <li>Gender: Male</li>
-                            <li>Monthly Rate: &#8369; 500.00</li>
-                            <li class="ratings">
-                                <span>Experience:
-                                        <a href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a>
-                                        <a href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a>
-                                        <a href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a> 
-                                        <a href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a> 
-                                        <span class="num-of-rev">(76 Reviews)</span>                                     
-                                    </span>
-                            </li>   
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <p class="card-text text-right">
-                            <a href="boardinghouse.php">
-                                <span class="fa fa-eye"></span>
-                                View Details
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>    
-            <div class="col-md-6">
-                <div class="card bhouse-cntr">
-                    <img class="card-img-top" src="images/sample-unit.jpeg" alt="Card image cap">
-                    <div class="card-block">
-                        <ul class="bhouse-det">
-                            <h5 class="card-title">Gemma's Boardinghouse</h5>
-                            <li>Accomodation: Bedspacer</li>
-                            <li>Gender: Male</li>
-                            <li>Monthly Rate: &#8369; 500.00</li>
-                            <li class="ratings">
-                                <span>Experience:
-                                        <a href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a>
-                                        <a href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a>
-                                        <a href="#">
-                                            <span class="fa fa-star"></span>
-                                        </a> 
-                                        <span class="num-of-rev">(26 Reviews)</span>                                     
-                                    </span>
-                            </li>   
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <p class="card-text text-right">
-                            <a href="boardinghouse.php">
-                                <span class="fa fa-eye"></span>
-                                View Details
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
+    <?php } else {?>
+        
+        <div class="alert alert-warning text-center">
+            <strong>Warning!</strong> No Data Available
         </div>
-    
-    
-    </div>
 
+    <?php } ?>
+    
+
+
+<hr>
 
 <?php 
     include 'includes/footer.php'; 
