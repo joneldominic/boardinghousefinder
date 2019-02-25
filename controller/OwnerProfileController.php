@@ -34,7 +34,6 @@ class OwnerProfileController {
         $homeAddress = $data['homeAddress'];
         $contactNumber = $data['contactNumber'];
 
-
         $update_qry = "UPDATE `tbl_ownerInfo` SET 
                         `firstName`='$firstname',
                         `lastName`='$lastname',
@@ -50,7 +49,6 @@ class OwnerProfileController {
         }
     }
 
-    
 }
 
 ?>

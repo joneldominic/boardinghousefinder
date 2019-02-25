@@ -78,7 +78,7 @@
                                             <div class="row">
                                                     <div class="col text-center">
                                                         <a href="editunit.php?id=<?php echo $unit['unitID']; ?>">
-                                                            <span class="fa fa-eye"></span>
+                                                            <span class="fa fa-edit"></span>
                                                             Edit Unit
                                                         </a>
                                                     </div>

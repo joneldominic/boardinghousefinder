@@ -178,6 +178,71 @@ class UnitController {
         }
     }
 
+    public function updateUnit($data)
+    {
+        $db = new config; // create config instance
+        $conn = $db->dbconnect(); // getting the connection
+
+
+        $unitID = $data['unitID'];
+        $ownerID = $data['ownerID'];
+        $unitname = $data['unitname'];
+        $location = $data['location'];
+        $capacity = $data['capacity'];
+        $gender = $data['gender'];
+        $accomodation = $data['accomodation'];
+        $monthlyrate = $data['monthlyrate'];
+        $description = $data['description'];
+        $status = $data['status'];
+        $dateUpdated = date("F j, Y"); 
+
+
+        $edit_unit_qry = "UPDATE 
+                            `tbl_unit` SET 
+                            `unitName`= '$unitname',
+                            `location`= '$location',
+                            `capacity`= $capacity,
+                            `gender`= $gender,
+                            `accomodation`= $accomodation,
+                            `monthlyRate`= $monthlyrate,
+                            `description`= '$description',
+                            `status`= $status,
+                            `dateUpdated`= '$dateUpdated'
+                            WHERE `unitID` = $unitID
+                            AND `tbl_owner_ownerID` = $ownerID";
+
+        if ($conn->query($edit_unit_qry) === false) {
+            echo "Failed to Update Unit";
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function deleteUnit($data) {
+
+        $db = new config; // create config instance
+        $conn = $db->dbconnect(); // getting the connection
+
+        $unitID = $data['unitID'];
+        $ownerID = $data['ownerID'];
+       
+
+        $delete_unit_qry1 = "DELETE FROM `tbl_unitImage` WHERE `tbl_unit_unitID` = $unitID";
+        $delete_unit_qry2 = " DELETE FROM `tbl_unit` WHERE `unitID` = $unitID AND `tbl_owner_ownerID` = $ownerID";
+        
+       
+        if ($conn->query($delete_unit_qry1) === true) {
+            if($conn->query($delete_unit_qry2) === true) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+    }
 
 }
 

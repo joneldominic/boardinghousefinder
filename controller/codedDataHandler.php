@@ -22,7 +22,6 @@ class codedDataHandler {
         return $arrStatus[$i];
     }
 
-
 }
     
 

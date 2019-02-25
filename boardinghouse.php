@@ -16,8 +16,6 @@
     $unitControl = new UnitController;
     $cdHandler = new codedDataHandler;
 
-
-
     if(isset($_GET['id'])) {
         
         list($unitDetails, $unitImages, $resMax, $resMin) = $unitControl->getUnitsDetail($_GET['id']);
@@ -69,8 +67,16 @@
         </div>
 
         <hr />
+        
+        <?php if( $unitDetails[0]['tbl_owner_ownerID'] == $_SESSION['ownerID']) {?>
+            <a href="editunit.php?id=<?php echo $_GET['id']?>"><h3 class="text-center"><span class="fa fa-edit"></span>  <?php echo $unitDetails[0]["unitName"]; ?></h3></a>
+        <?php } else {?>
+            <h3 class="text-center"><?php echo $unitDetails[0]["unitName"]; ?></h3>
+        <?php }?>
 
-        <h3 class="text-center"><?php echo $unitDetails[0]["unitName"]; ?></h3>
+
+
+
         <hr />
         <div class="row">
             <div class="col-md-6">

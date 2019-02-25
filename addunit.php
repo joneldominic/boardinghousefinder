@@ -94,7 +94,7 @@
 
                         <!-- col-md-5 mx-auto -->
 
-                        <form method="POST" name="registration" enctype="multipart/form-data">
+                        <form method="POST" name="addunit_form" enctype="multipart/form-data">
                             <input type="hidden" name="ownerID" value="<?php echo $_SESSION['ownerID'] ?>">
 
                             <!-- Dummy Ratings -->
