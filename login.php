@@ -54,7 +54,7 @@
             
 
 
-        <div class="container log-in-page">
+        <div class="container log-in-page" style="height:100vh;">
 
             <div class="row">
                 <div class="col-12">
@@ -77,10 +77,10 @@
                                 <label for="password">Password</label>
                                 <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password" required>
                             </div>
-                            <div class="col-md-12 text-center ">
+                            <div class="col-md-12 text-center mt-4">
                                 <button type="submit" class=" btn btn-block btn-primary tx-tfm" name="btnLogin" id="btnLogin">Login</button>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mt-2">
                                 <p class="text-center">Don't have account? <a href="signup.php" id="btnSignup">Sign up here</a></p>
                             </div>
                         </form>
@@ -88,7 +88,7 @@
                     </div>
 			    </div>
 		    </div>
-        </div>   
+        </div>      
 
 
 

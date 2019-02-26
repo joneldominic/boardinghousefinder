@@ -69,14 +69,17 @@
 
  <!-- Search Bar -->
  <div class="my-filter-cntr">
+
+
         <div class="row text-center pb-4">
-            <div class="col-md-12">
+            <div class="col-md-12 catch-phrase">
                 <h3>Find your <q>home away from home</q> the fastest and easiest way</h3>
             </div>
         </div>   
+
         <hr>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 filter-cntr-col">
                 <div class="">
                     <div class="card-body">
                         <form method="GET" name="filter-form" class="row justify-content-center">
@@ -221,7 +224,7 @@
                             </div>
 
                             <!-- Buttons -->
-                            <div class="col-md-2 text-center pt-md-4">
+                            <div class="filter-btn col-md-2 text-center pt-md-4">
                                 <button id="btnSearchUnit" type="submit" class="btn btn-default">
                                     <span class="fa fa-filter"></span>    
                                     Add Filter

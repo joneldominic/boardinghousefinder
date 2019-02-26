@@ -127,7 +127,16 @@
 }
 
 @media (min-width: 768px) {  
-  
+    
+    .filter-cntr-col {
+        padding-top: -20px;
+    }
+
+    .form-group, .filter-btn {
+        margin-top: -20px;
+        margin-bottom: -20px;
+    }
+
 
 }
  
@@ -141,4 +150,30 @@
  
 @media (max-width: 950px) { 
  
+}
+
+
+
+/* Color Mods */
+body {
+    background-image: linear-gradient(to bottom right, #e0eff9, #c1bfea);
+}
+
+nav.navbar{
+    background-image: linear-gradient(to bottom right, #e0eff9, #6fadf0);
+    box-shadow: 0 4px 2px -2px gray;
+
+}
+
+.catch-phrase {
+    font-family: cursive;
+}
+
+.navbar .navbar-brand {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+} 
+
+.bhpage-cntr {
+    background: whitesmoke;
+    border-radius: 10px;
 }
