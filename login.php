@@ -36,8 +36,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Boardinghouse Finder (VSU)</title>
-        <link rel="icon" href="images/bhouse.jpeg">
+        <title>Boardinghouse Finder</title>
+        <link rel="icon" href="images/logo.png">
 
         <!-- Bootstrap core CSS -->
         <link href="./assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -51,25 +51,22 @@
 
     <body>
 
-        <nav class="navbar navbar-light bg-light navbar-expand-lg">
-            <a class="navbar-brand" href="index.php">
-                <img src="images/bhouse.jpeg" width="30" height="30" class="d-inline-block align-top" alt="">
-                Boardinghouse Finder
-            </a>
-        </nav>
+            
 
-        
 
-        <div class="container">
+        <div class="container log-in-page">
+
+            <div class="row">
+                <div class="col-12">
+                    <a href="index.php">
+                        <img class="mx-auto d-block logo" src="images/logo-A.png" width="300">  
+                    </a>
+                </div>
+            </div>
+
             <div class="row">
 			    <div class="col-md-5 mx-auto">
                     <div class="form ">
-                        
-                        <div class="mb-3">
-                            <div class="col-md-12 text-center">
-                                <h1>Welcome</h1>
-                            </div>
-                        </div>
                         
                         <form method="POST" name="login">
                             <div class="form-group">

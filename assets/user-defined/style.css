@@ -2,13 +2,18 @@
     .my-top-margin-3em {
         margin-top: 3em;
     }
+
+    .vsu-navbar-label-b {
+        font-size: 10px;
+    }
+
 /* General >> */
 
 
 
 /* index.php << */
 
-    .my-search-bar {
+    .my-filter-cntr {
         margin-top: 2em;
     }
  
@@ -100,3 +105,40 @@
         max-width:100%;
     }
 /* Add Unit>> */
+
+
+/* Login Page */
+
+.log-in-page .logo{
+    margin-top: -30px;
+    margin-bottom: -50px;
+}
+
+/* Login Page */
+
+
+
+@media (max-width: 575px) {
+  
+}
+
+@media (min-width: 576px) {  
+   
+}
+
+@media (min-width: 768px) {  
+  
+
+}
+ 
+@media (min-width: 992px) { 
+ 
+}
+ 
+@media (min-width: 1200px) {  
+    
+}
+ 
+@media (max-width: 950px) { 
+ 
+}

@@ -33,7 +33,8 @@ class UnitController {
         $qry_add_unit = "INSERT INTO `tbl_unit`(`tbl_owner_ownerID`, `unitName`, `location`, `capacity`, `gender`, `accomodation`, `monthlyRate`, `description`, `status`, `dateUpdated`,`rating`,`reviewCount`, `featuredImg`) 
                                         VALUES ($ownerID, '$unitname', '$location', $capacity, $gender, $accomodation, $monthlyrate, '$description', $status, '$dateUpdated', '$rating', '$reviewCount', '$binaryImg')"; 
 
-        // check the connection if successful
+
+
         if ($conn->query($qry_add_unit) === true) {
                        
             $latestUnitID = $conn->insert_id;
@@ -58,9 +59,12 @@ class UnitController {
                 }
                 
             }
+
             return true;
         }
 
+        // Display the last error from the connection
+        echo mysqli_error($conn);
 
         $conn->close(); // close the connection
     }
@@ -86,7 +90,7 @@ class UnitController {
         $db = new config; // create config instance
         $conn = $db->dbconnect(); // getting the connection
 
-        $qry = "SELECT `unitID`, `tbl_owner_ownerID`, `unitName`, `location`, `gender`, `accomodation`, `monthlyRate`, `rating`, `reviewCount`, `featuredImg` FROM `tbl_unit` WHERE $query_condition ORDER BY `unitName` ASC";
+        $qry = "SELECT `unitID`, `tbl_owner_ownerID`, `unitName`, `location`, `gender`, `accomodation`, `monthlyRate`, `rating`, `reviewCount`, `featuredImg`, `status` FROM `tbl_unit` WHERE $query_condition ORDER BY `unitName` ASC";
         $res = $conn->query($qry);
 
         $units = array();
