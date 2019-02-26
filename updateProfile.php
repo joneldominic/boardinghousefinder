@@ -1,9 +1,12 @@
 <?php
+   
     session_start();
 
     if (!isset($_SESSION['isloggedin']) || !isset($_GET['ownerID'])) {
         Header('Location: login.php'); 
     }
+    
+    ob_start();    
     
     include_once('includes/header.php');
     include_once('includes/navbar/navbar(withuser).php');
@@ -28,6 +31,8 @@
                         <strong>Error!</strong> Account not found.
                     </div>
             ";
+        } else {
+             Header('Location: updateProfile.php?ownerID='.$data['ownerID']); 
         }
     }
 ?>

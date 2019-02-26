@@ -51,10 +51,10 @@
 
             Header("Location: editunit.php?id=$data[unitID]"); 
 
-            echo"  <div class='alert alert-success' role='alert'>
-                        <strong>Unit Added Succesfully!</strong>
-                    </div>
-                ";
+            // echo"  <div class='alert alert-success' role='alert'>
+            //             <strong>Unit Added Succesfully!</strong>
+            //         </div>
+            //     ";
 
         } else {
             // Display Error
@@ -79,10 +79,10 @@
 
             Header("Location: index.php"); 
 
-            echo"  <div class='alert alert-success' role='alert'>
-                        <strong>Unit Added Succesfully!</strong>
-                    </div>
-                ";
+            // echo"  <div class='alert alert-success' role='alert'>
+            //             <strong>Unit Edited Succesfully!</strong>
+            //         </div>
+            //     ";
 
         } else {
             // Display Error
@@ -101,8 +101,8 @@
 <!-- Navigation Bar -->
     <nav class="navbar navbar-light bg-light navbar-expand-lg">
         <a class="navbar-brand" href="index.php">
-            <img src="images/bhouse.jpeg" width="30" height="30" class="d-inline-block align-top" alt="">
-            Boardinghouse Finder <span class="vsu-navbar-label-a" style="font-size: 15px;">(Visayas State University)</span><span class="vsu-navbar-label-b">(VSU)</span>
+            <img src="images/logo.png" width="50" height="" class="d-inline-block align-top" alt="">
+            Boardinghouse Finder 
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">

@@ -39,10 +39,10 @@
 
             Header('Location: addunit.php');
 
-            echo"  <div class='alert alert-success' role='alert'>
-                        <strong>Unit Added Succesfully!</strong>
-                    </div>
-                ";
+            // echo"  <div class='alert alert-success' role='alert'>
+            //             <strong>Unit Added Succesfully!</strong>
+            //         </div>
+            //     ";
 
         } else {
             // Display Error

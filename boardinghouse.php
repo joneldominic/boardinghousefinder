@@ -114,7 +114,7 @@
                     <li class="ratings">
                             <span>Experience:
 
-                                <? $star = $unitDetails[0]['rating']; ?>
+                                <?php $star = $unitDetails[0]['rating']; ?>
                                     <?php for($i=0; $i<$star; $i++ ) {?>
                                         <a href="#">
                                             <span class="fa fa-star"></span>
